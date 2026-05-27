@@ -21,19 +21,23 @@
 
 ## Dashboard
 
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](./screenshots/dashboard.png.png)
+
+
 
 ## AI Review Panel
 
-![AI Review](./screenshots/review-panel.png)
+![AI Review](./screenshots/review-panel.png.png)
+
 
 ## Analytics
 
-![Analytics](./screenshots/analytics.png)
+![Analytics](./screenshots/analytics.png.png)
+
 
 ## Login Screen
 
-![Login](./screenshots/login.png)
+![Login](./screenshots/login.png.png)
 
 ---
 
