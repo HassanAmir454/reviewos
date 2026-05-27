@@ -1,0 +1,21 @@
+.shiki-container pre {
+  background-color: transparent !important;
+  margin: 0;
+  padding: 1rem;
+}
+
+.shiki-container code {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.shiki-container .line.diff.add {
+  background-color: var(--accent-green-dim);
+  display: block;
+}
+
+.shiki-container .line.diff.remove {
+  background-color: var(--accent-red-dim);
+  display: block;
+}
