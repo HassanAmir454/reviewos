@@ -1,20 +1,19 @@
-# Environment files - NEVER commit these
+# Environment files
 .env
 .env.local
 .env.*.local
+backend/.env
+frontend/.env.local
 
 # Python
 backend/.venv/
 **/__pycache__/
 **/*.pyc
-*.pyo
-*.pyd
 
 # Next.js
 frontend/.next/
 frontend/node_modules/
-frontend/.env.local
+frontend/package-lock.json
 
-# Docker
-*.log
-.DS_Store
+# Build info
+frontend/tsconfig.tsbuildinfo
