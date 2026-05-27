@@ -13,6 +13,15 @@ interface PRListItemProps {
 }
 
 export function PRListItem({ pr, isSelected, onClick }: PRListItemProps) {
+  const statusText =
+    pr.state === 'draft'
+      ? 'DRAFT'
+      : pr.reviewState === 'in_review'
+      ? 'IN REVIEW'
+      : pr.reviewState === 'conflicts'
+      ? 'CONFLICTS'
+      : 'OPEN'
+
   return (
     <motion.button
       onClick={onClick}
@@ -30,7 +39,7 @@ export function PRListItem({ pr, isSelected, onClick }: PRListItemProps) {
         <span className="font-mono text-[11px] font-bold text-accent-green shrink-0">
           #{pr.number}
         </span>
-        <PRStatusBadge state={pr.state} reviewState={pr.reviewState} />
+        <PRStatusBadge status={statusText as 'OPEN' | 'IN REVIEW' | 'CONFLICTS' | 'DRAFT'} />
         <span className="ml-auto font-mono text-[10px] text-text-ghost shrink-0">
           {formatRelativeTime(pr.updatedAt)}
         </span>
