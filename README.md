@@ -1,81 +1,216 @@
 # ReviewOS — AI Code Review Dashboard
 
-> Production-grade, visually extraordinary AI-powered GitHub Pull Request review dashboard.
+> Production-grade, AI-powered GitHub Pull Request review platform with real-time streaming reviews, analytics, and collaborative developer tooling.
 
-![ReviewOS](https://img.shields.io/badge/ReviewOS-v1.0-00FF88?style=flat-square&labelColor=0A0B0E)
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi)
-![Claude](https://img.shields.io/badge/Claude-claude--sonnet--4-orange?style=flat-square)
-
----
-
-## Features
-
-| Feature | Description |
-|---|---|
-| 🤖 **AI Code Review** | Claude claude-sonnet-4-20250514 streams reviews token-by-token via WebSocket |
-| 📊 **Analytics Dashboard** | Velocity charts, contribution heatmap, team leaderboard, merge histograms |
-| 🔄 **Real-time Updates** | WebSocket push — new PRs appear instantly, no polling |
-| 📁 **Diff Viewer** | Syntax-highlighted unified diff with file tree navigation |
-| 🔐 **GitHub OAuth** | NextAuth v5 with GitHub OAuth — secure session management |
-| 🪝 **Webhooks** | GitHub App webhooks with HMAC signature verification |
-| ⌨️ **Keyboard Nav** | J/K to navigate PRs vim-style |
-| 🧠 **Complexity Score** | Cyclomatic complexity per PR (supports Python, TS, JS, Go, Rust) |
+![ReviewOS](https://img.shields.io/badge/ReviewOS-v1.0-00FF88?style=flat-square\&labelColor=0A0B0E)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square\&logo=next.js)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square\&logo=fastapi)
+![Claude](https://img.shields.io/badge/Claude-Sonnet%204-orange?style=flat-square)
 
 ---
 
-## Tech Stack
+# Live Demo
 
-### Frontend
-- **Next.js 14** (App Router, Server Components)
-- **TypeScript** strict mode
-- **Tailwind CSS** with custom design tokens
-- **Framer Motion** animations
-- **Recharts + D3** data visualizations
-- **Zustand** global state
-- **TanStack Query** data fetching
-
-### Backend
-- **FastAPI** async with Pydantic v2
-- **Anthropic SDK** (Claude streaming)
-- **SQLAlchemy** async ORM + PostgreSQL
-- **Redis** caching & pub/sub
-- **Celery** background workers
-- **httpx** async GitHub API client
+👉 [https://reviewosapp.vercel.app](https://reviewosapp.vercel.app)
 
 ---
 
-## Quick Start
+# Preview
 
-### 1. Clone & configure environment
+<!-- Add your screenshots below -->
 
-```bash
-git clone <repo-url>
-cd reviewos
-cp .env.example .env
-# Fill in all values in .env
+## Dashboard
+
+![Dashboard](./screenshots/dashboard.png)
+
+## AI Review Panel
+
+![AI Review](./screenshots/review-panel.png)
+
+## Analytics
+
+![Analytics](./screenshots/analytics.png)
+
+## Login Screen
+
+![Login](./screenshots/login.png)
+
+---
+
+# Why I Built ReviewOS
+
+I wanted to build a production-grade AI developer platform that combines:
+
+* real-time systems
+* GitHub integrations
+* streaming AI responses
+* modern frontend architecture
+* scalable backend infrastructure
+* developer-focused UX
+
+The goal was to simulate a real SaaS engineering environment rather than creating a simple tutorial project.
+
+ReviewOS focuses heavily on performance, developer experience, and production-level architecture.
+
+---
+
+# Features
+
+| Feature                     | Description                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| 🤖 **AI Code Review**       | Claude Sonnet 4 streams reviews token-by-token via WebSocket                   |
+| 📊 **Analytics Dashboard**  | Velocity charts, contribution heatmaps, merge histograms, and team leaderboard |
+| 🔄 **Real-time Updates**    | New PRs appear instantly through WebSocket push events                         |
+| 📁 **Advanced Diff Viewer** | Syntax-highlighted unified diffs with file tree navigation                     |
+| 🔐 **GitHub OAuth**         | Secure authentication using NextAuth v5 + GitHub OAuth                         |
+| 🪝 **Webhook Processing**   | GitHub webhook ingestion with HMAC signature verification                      |
+| ⌨️ **Keyboard Navigation**  | Vim-style navigation using J/K shortcuts                                       |
+| 🧠 **Complexity Analysis**  | Cyclomatic complexity scoring for multiple languages                           |
+| ⚡ **Streaming Reviews**     | AI responses stream live token-by-token                                        |
+| 📡 **Background Workers**   | Celery-powered async task processing                                           |
+
+---
+
+# Tech Stack
+
+## Frontend
+
+* **Next.js 14** (App Router + Server Components)
+* **TypeScript** strict mode
+* **Tailwind CSS** with custom design system
+* **Framer Motion** animations
+* **Recharts + D3** visualizations
+* **Zustand** state management
+* **TanStack Query** data fetching
+* **NextAuth v5** authentication
+
+## Backend
+
+* **FastAPI** async API framework
+* **Anthropic SDK** for Claude streaming
+* **SQLAlchemy** async ORM
+* **PostgreSQL** database
+* **Redis** caching & pub/sub
+* **Celery** background workers
+* **httpx** async GitHub API integration
+
+## DevOps & Deployment
+
+* **Vercel** frontend hosting
+* **Docker Compose** local orchestration
+* **GitHub OAuth Apps** authentication
+* **WebSockets** real-time communication
+
+---
+
+# Architecture
+
+```text
+GitHub Webhooks
+        │
+        ▼
+    FastAPI Backend
+        │
+ ┌──────┴──────┐
+ ▼             ▼
+Redis       PostgreSQL
+ │
+ ▼
+WebSocket Broadcast
+ │
+ ▼
+Next.js Frontend
 ```
 
-### 2. Create GitHub OAuth App
+---
 
-1. Go to [github.com/settings/developers](https://github.com/settings/developers)
-2. New OAuth App → set callback URL to `http://localhost:3000/api/auth/callback/github`
-3. Copy Client ID & Secret into `.env` as `GITHUB_ID` and `GITHUB_SECRET`
+# Project Structure
 
-### 3. Run with Docker Compose
+```text
+reviewos/
+├── frontend/                 # Next.js 14 frontend
+│   ├── app/                  # App Router pages
+│   ├── components/           # UI + feature components
+│   ├── hooks/                # Data hooks
+│   ├── lib/                  # API + websocket clients
+│   ├── store/                # Zustand state stores
+│   └── types/                # TypeScript types
+│
+├── backend/                  # FastAPI backend
+│   ├── app/
+│   │   ├── routers/          # REST + WebSocket routes
+│   │   ├── services/         # AI, GitHub, Analytics
+│   │   ├── models/           # SQLAlchemy models
+│   │   ├── schemas/          # Pydantic schemas
+│   │   ├── tasks/            # Celery workers
+│   │   └── utils/            # Parsers & helpers
+│   │
+│   └── alembic/              # Database migrations
+│
+└── docker-compose.yml
+```
+
+---
+
+# Quick Start
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/reviewos.git
+cd reviewos
+```
+
+---
+
+## 2. Configure Environment Variables
+
+```bash
+cp .env.example .env
+```
+
+Fill in all required values.
+
+---
+
+## 3. Create GitHub OAuth App
+
+1. Go to [https://github.com/settings/developers](https://github.com/settings/developers)
+2. Create a new OAuth App
+3. Set callback URL:
+
+```bash
+http://localhost:3000/api/auth/callback/github
+```
+
+4. Copy credentials into `.env`
+
+```env
+GITHUB_ID=your_client_id
+GITHUB_SECRET=your_client_secret
+```
+
+---
+
+## 4. Run with Docker Compose
 
 ```bash
 docker-compose up --build
 ```
 
-Services started:
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8000
-- **API Docs**: http://localhost:8000/docs
-- **PostgreSQL**: localhost:5432
-- **Redis**: localhost:6379
+Services:
 
-### 4. Run database migrations
+| Service     | URL                                                      |
+| ----------- | -------------------------------------------------------- |
+| Frontend    | [http://localhost:3000](http://localhost:3000)           |
+| Backend API | [http://localhost:8000](http://localhost:8000)           |
+| API Docs    | [http://localhost:8000/docs](http://localhost:8000/docs) |
+| PostgreSQL  | localhost:5432                                           |
+| Redis       | localhost:6379                                           |
+
+---
+
+## 5. Run Database Migrations
 
 ```bash
 docker-compose exec backend alembic upgrade head
@@ -83,33 +218,19 @@ docker-compose exec backend alembic upgrade head
 
 ---
 
-## Environment Variables
+# Development Without Docker
 
-See `.env.example` for the full list. Critical ones:
-
-| Variable | Description |
-|---|---|
-| `ANTHROPIC_API_KEY` | Claude API key for AI reviews |
-| `GITHUB_TOKEN` | GitHub PAT (scopes: `repo`, `read:org`) |
-| `GITHUB_ID` / `GITHUB_SECRET` | GitHub OAuth App credentials |
-| `NEXTAUTH_SECRET` | Session signing key — generate with `openssl rand -base64 32` |
-| `NEXT_PUBLIC_DEFAULT_REPO` | Default repo to show (e.g. `vercel/next.js`) |
-
----
-
-## Development (Without Docker)
-
-### Backend
+## Backend
 
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-### Frontend
+## Frontend
 
 ```bash
 cd frontend
@@ -119,56 +240,78 @@ npm run dev
 
 ---
 
-## Architecture
+# Environment Variables
 
-```
-reviewos/
-├── frontend/          # Next.js 14 App
-│   ├── app/           # App Router pages
-│   ├── components/    # UI + feature components
-│   ├── hooks/         # Data-fetching hooks
-│   ├── store/         # Zustand stores
-│   ├── lib/           # API client, WS singleton
-│   └── types/         # TypeScript interfaces
-│
-└── backend/           # FastAPI Python API
-    ├── app/
-    │   ├── routers/   # HTTP + WebSocket routes
-    │   ├── services/  # GitHub, AI, Analytics, Cache
-    │   ├── models/    # SQLAlchemy ORM models
-    │   ├── schemas/   # Pydantic v2 schemas
-    │   ├── tasks/     # Celery background tasks
-    │   └── utils/     # Diff parser, complexity calc
-    └── alembic/       # DB migrations
+Critical environment variables:
+
+| Variable                   | Description                  |
+| -------------------------- | ---------------------------- |
+| `ANTHROPIC_API_KEY`        | Claude API key               |
+| `GITHUB_TOKEN`             | GitHub personal access token |
+| `GITHUB_ID`                | GitHub OAuth client ID       |
+| `GITHUB_SECRET`            | GitHub OAuth secret          |
+| `NEXTAUTH_SECRET`          | Session signing secret       |
+| `NEXTAUTH_URL`             | Frontend deployment URL      |
+| `NEXT_PUBLIC_DEFAULT_REPO` | Default repository           |
+
+Generate a secure NextAuth secret:
+
+```bash
+openssl rand -base64 32
 ```
 
 ---
 
-## WebSocket Protocol
+# WebSocket Protocol
 
-```jsonc
-// Client receives these message types:
-{ "type": "pr.opened",       "data": { ...PR } }
-{ "type": "pr.updated",      "data": { ...PR } }
-{ "type": "pr.closed",       "data": { "number": 123 } }
-{ "type": "review.token",    "data": { "reviewId": "...", "token": "..." } }
-{ "type": "review.complete", "data": { "reviewId": "...", "fullText": "..." } }
-{ "type": "review.error",    "data": { "reviewId": "...", "message": "..." } }
-{ "type": "sync.status",     "data": { "message": "...", "progress": 0.6 } }
+```json
+{ "type": "pr.opened", "data": { ... } }
+{ "type": "pr.updated", "data": { ... } }
+{ "type": "pr.closed", "data": { ... } }
+{ "type": "review.token", "data": { ... } }
+{ "type": "review.complete", "data": { ... } }
+{ "type": "review.error", "data": { ... } }
+{ "type": "sync.status", "data": { ... } }
 ```
 
 ---
 
-## Keyboard Shortcuts
+# Keyboard Shortcuts
 
-| Key | Action |
-|---|---|
-| `J` | Next PR in list |
-| `K` | Previous PR in list |
-| `R` | Trigger AI Review (when PR selected) |
+| Key | Action                |
+| --- | --------------------- |
+| `J` | Next Pull Request     |
+| `K` | Previous Pull Request |
+| `R` | Trigger AI Review     |
 
 ---
 
-## License
+# Deployment
 
-MIT — built as a portfolio project.
+| Platform     | Purpose             |
+| ------------ | ------------------- |
+| Vercel       | Frontend hosting    |
+| PostgreSQL   | Persistent database |
+| Redis        | Cache + pub/sub     |
+| GitHub OAuth | Authentication      |
+
+---
+
+# Future Improvements
+
+* Multi-repository support
+* Team collaboration comments
+* Inline AI suggestions
+* CI/CD integrations
+* AI-generated summaries
+* Slack / Discord notifications
+* Repository health scoring
+
+---
+
+# License
+
+MIT License
+
+Built as a portfolio project focused on real-world software engineering practices.
+
